@@ -1,0 +1,72 @@
+{
+  "root": "apps/online-booking",
+  "sourceRoot": "apps/online-booking/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/online-booking",
+        "index": "apps/online-booking/src/index.html",
+        "baseHref": "/",
+        "main": "apps/online-booking/src/main.js",
+        "polyfills": "apps/online-booking/src/polyfills.js",
+        "tsConfig": "apps/online-booking/tsconfig.app.json",
+        "assets": [
+          "apps/online-booking/src/favicon.ico",
+          "apps/online-booking/src/assets"
+        ],
+        "styles": ["apps/online-booking/src/styles.css"],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/online-booking/src/environments/environment.js",
+              "with": "apps/online-booking/src/environments/environment.prod.js"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "options": {
+        "buildTarget": "online-booking:build",
+        "hmr": true
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "online-booking:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/online-booking/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/online-booking"],
+      "options": {
+        "jestConfig": "apps/online-booking/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

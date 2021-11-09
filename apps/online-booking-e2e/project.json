@@ -1,0 +1,29 @@
+{
+  "root": "apps/online-booking-e2e",
+  "sourceRoot": "apps/online-booking-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/online-booking-e2e/cypress.json",
+        "devServerTarget": "online-booking:serve",
+        "tsConfig": "apps/online-booking-e2e/tsconfig.json"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "online-booking:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/online-booking-e2e/**/*.js"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["online-booking"]
+}

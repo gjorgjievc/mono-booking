@@ -1,4 +1,8 @@
 {
   "version": 2,
-  "projects": {}
+  "projects": {
+    "online-booking": "apps/online-booking",
+    "online-booking-e2e": "apps/online-booking-e2e",
+    "pabau-lib": "libs/pabau-lib"
+  }
 }
