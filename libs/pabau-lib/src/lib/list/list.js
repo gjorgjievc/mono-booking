@@ -1,5 +1,7 @@
 import './list.module.css';
-export const List = ({
+import { List } from 'antd';
+
+export const ServicesList = ({
   services, 
   handleActive, 
   size,
@@ -25,4 +27,4 @@ export const List = ({
       />
   )
 }
-export default List;
+export default ServicesList;

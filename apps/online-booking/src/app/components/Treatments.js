@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import TreatmentCard from './TreatmentCard';
 import { TreatmentButtons } from './TreatmentButtons';
+import { TreatmentCard } from '@pab/pabau-lib';
+import { useState } from 'react';
 
 const Treatments = ({ 
     treatments, 
     select, 
-    hideOnline, 
-    inClinic, 
-    handleInClinic 
+    hideOnline
 }) => {
+
+    const [ inClinic, setInClinic ] = useState(true);
+    
+    const handleInClinic = (flag) => {
+        setInClinic(flag)
+    }
     
     return (
         <div>
@@ -19,13 +23,13 @@ const Treatments = ({
                     if(t.online === false || t.online === undefined)
                     return (
                     <TreatmentCard 
-                        name={t.name}
-                        rating={t.rating}
-                        review={t.review}
-                        time={t.time}
-                        price={t.price}
-                        online={t.online}
-                        select={select}
+                        serviceName={t.name}
+                        serviceRating={t.rating}
+                        serviceReview={t.review}
+                        serviceTime={t.time}
+                        servicePrice={t.price}
+                        serviceOnline={t.online}
+                        onClick={select}
                     />
                     )
 
@@ -34,17 +38,17 @@ const Treatments = ({
             {
                 !inClinic && 
                 treatments.map(t => {
-                    if(t.online === true )
+                    if(t.online === true)
                     return (
-                    <TreatmentCard 
-                        name={t.name}
-                        rating={t.rating}
-                        review={t.review}
-                        time={t.time}
-                        price={t.price}
-                        online={t.online}
-                        select={select}
-                    />
+                        <TreatmentCard 
+                            serviceName={t.name}
+                            serviceRating={t.rating}
+                            serviceReview={t.review}
+                            serviceTime={t.time}
+                            servicePrice={t.price}
+                            serviceOnline={t.online}
+                            onClick={select}
+                        />
                     )
 
                 })

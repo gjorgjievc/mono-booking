@@ -3,11 +3,8 @@ import { defaultItems } from "../api/data";
 import { Row, Col } from "antd";
 import { AppstoreOutlined, CreditCardOutlined } from '@ant-design/icons';
 
-import { Card } from '@pab/pabau-lib'
-import { List } from '@pab/pabau-lib'
+import { Card, ServicesList } from '@pab/pabau-lib'
 
-import SingleService from "./SingleService";
-import ServicesList from "./ServicesList";
 import Treatments from './Treatments';
 
 
@@ -17,7 +14,6 @@ const Services = () => {
     const [ subCategory, setSubCategory ] = useState([]);
     const [ selected, setSelected ] = useState([])
     const [ hideOnline, setHideOnline ] = useState(false);
-    const [ inClinic, setInClinic ] = useState(true);
 
     
     useEffect(() => {
@@ -31,7 +27,6 @@ const Services = () => {
         console.log(firstCategory)
         defaultItems.filter(service => {
             if(service.name === serviceName) {
-                console.log(service)
                 service.category.map(n => arr.push({
                     name: n.name,
                     rndValue: n.rdmValue,
@@ -70,7 +65,6 @@ const Services = () => {
                     if(category == c.name){
                         c.subCategory.map(subc => {
                             arr.push(subc)
-                            console.log(subc, subc.online)
                             // vidi dali ima onlajn parametar? vo subCategorijata (ova treba rabota ama nemozam krajot da mu go najdam)
                             if(subc.online === undefined){
                                 setHideOnline(true)
@@ -103,25 +97,22 @@ const Services = () => {
         }
     }
     console.log(selected)
-
-    const handleInClinic = (flag) => {
-        setInClinic(flag)
-    }
-
     return(
         <>
             <div style={{display: 'flex', justifyContent: 'center', alignContent: 'center'}}>
                 <Row justify="space-between" align="middle" style={{display: "flex", border: "1px solid", width: '700px'}}>
-                    <Col span={3} onClick={() => handleAll()}> 
-                        <Card icon={AppstoreOutlined} serviceName="All" /> 
+                    <Col span={3} > 
+                        <Card onClick={handleAll} icon={AppstoreOutlined} serviceName="All" /> 
                     </Col>
                 {
                     defaultItems.map(service => 
-                        <Col span={3} onClick={() => handleList(service.name, service.category[0].name)}>
+                        <Col span={3} >
                            <Card
-                                key={service.key} 
+                                onClick={handleList}
+                                key={service.name} 
                                 icon={service.icon} 
-                                serviceName={service.name} 
+                                serviceName={service.name}
+                                categoryName={service.category[0].name} 
                             />  
                         </Col>
                     )
@@ -130,12 +121,22 @@ const Services = () => {
                 </Row>
             </div>
             <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
-                {/* <List services={list} handleActive={handleActive} size={'large'} itemLayout={'horizontal'} bordered={'true'} /> */}
-                <Treatments treatments={subCategory} select={handleSelect} hideOnline={hideOnline} handleInClinic={handleInClinic} inClinic={inClinic} />
+                <ServicesList 
+                    services={list} 
+                    handleActive={handleActive} 
+                    size={'large'} 
+                    itemLayout={'horizontal'} 
+                    bordered={'true'} 
+                />
+                <Treatments 
+                    treatments={subCategory} 
+                    select={handleSelect} 
+                    hideOnline={hideOnline}
+                />
             </div>
             <div>
                 <div style={{position: 'fixed'}}>
-                    {selected.length}
+                    You've selected {selected.length} treatments
                 </div>
             </div>
          </>
