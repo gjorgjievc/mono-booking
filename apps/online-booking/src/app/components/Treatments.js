@@ -10,11 +10,12 @@ const Treatments = ({
 
     useEffect(() => {
         handleInClinic(true)
-    },[])
+    },[treatments])
 
     const [ inClinic, setInClinic ] = useState(true);
     
     const handleInClinic = (flag) => {
+        console.log('eve go flego')
         setInClinic(flag)
     }
     console.log(hideOnline)
