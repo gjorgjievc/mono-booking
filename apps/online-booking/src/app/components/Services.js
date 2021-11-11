@@ -59,14 +59,14 @@ const Services = () => {
     }
 
     // hendlaj aktivna kategorija i zacuvaj podatoci vo niza
-    const handleActive = (category) => {
+    const handleActive = (categoryName) => {
         const arr = []
         data.filter(cat => {
                 cat.category.map(c => {
-                    if(category == c.name){
+                    if(categoryName == c.name){
                         c.subCategory.map(subc => {
                             arr.push(subc)
-                            // vidi dali ima onlajn parametar? vo subCategorijata (ova treba rabota ama nemozam krajot da mu go najdam)
+                            // vidi dali ima onlajn parametar vo subCategory
                             if(subc.online === undefined){
                                 setHideOnline(true)
                                 console.log('eve go', subCategory[0].online)
@@ -79,7 +79,7 @@ const Services = () => {
                 })
         })
         setSubCategory(arr)
-        setActive(category) 
+        setActive(categoryName) 
     }
     
     // Hendlaj gi tretmanite sho se selektirani i cuvaj gi vo stejt
@@ -97,7 +97,7 @@ const Services = () => {
     }
     console.log(selected)
     return(
-        <>
+        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
             <div style={{display: 'flex', justifyContent: 'center', alignContent: 'center'}}>
                 <MasterCategories 
                     data={data} 
@@ -125,7 +125,7 @@ const Services = () => {
                     You've selected {selected.length} treatments
                 </div>
             </div>
-         </>
+         </div>
     )
 }
 
