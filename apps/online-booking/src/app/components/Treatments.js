@@ -1,6 +1,6 @@
 import { TreatmentButtons } from './TreatmentButtons';
 import { TreatmentCard } from '@pab/pabau-lib';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const Treatments = ({ 
     treatments, 
@@ -8,12 +8,16 @@ const Treatments = ({
     hideOnline
 }) => {
 
+    useEffect(() => {
+        handleInClinic(true)
+    },[])
+
     const [ inClinic, setInClinic ] = useState(true);
     
     const handleInClinic = (flag) => {
         setInClinic(flag)
     }
-    
+    console.log(hideOnline)
     return (
         <div>
             <TreatmentButtons handleInClinic={handleInClinic} hideOnline={hideOnline} /> 

@@ -37,3 +37,13 @@
     transform: rotate(360deg);
   }
 }
+.oneButton {
+  display: flex;
+  width: 400px;
+  /* border: 1px solid; */
+}
+.twoButtons {
+  display: flex;
+  width: 400px;
+  flex-direction: row;
+}

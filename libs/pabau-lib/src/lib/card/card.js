@@ -1,7 +1,7 @@
 import './card.module.css';
 export const Card = ({ onClick, serviceName, categoryName, icon}) => {
   return (
-      <div onClick={() => onClick(serviceName, categoryName)} style={{ cursor: 'pointer', border: '1px solid', display: 'flex', flexDirection: 'column', alignItems: 'center', }} >
+      <div onClick={() => onClick(serviceName, categoryName)} style={{  }} >
           <div>
               <img src={icon} alt=""/>
           </div>

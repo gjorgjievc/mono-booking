@@ -6,9 +6,10 @@ import { AppstoreOutlined, CreditCardOutlined } from '@ant-design/icons';
 import { Card, ServicesList } from '@pab/pabau-lib'
 
 import Treatments from './Treatments';
-
+import MasterCategories from "./MasterCategories";
 
 const Services = () => {
+    const [ data, setData ] = useState(defaultItems)
     const [ list, setList ] = useState([]);
     const [ active, setActive ] = useState('Botox')
     const [ subCategory, setSubCategory ] = useState([]);
@@ -25,7 +26,7 @@ const Services = () => {
     const handleList = (serviceName, firstCategory) => {
         const arr = []
         console.log(firstCategory)
-        defaultItems.filter(service => {
+        data.filter(service => {
             if(service.name === serviceName) {
                 service.category.map(n => arr.push({
                     name: n.name,
@@ -42,7 +43,7 @@ const Services = () => {
     // hendlaj klik na All (master kategorija )
     const handleAll = () => {
         const arr = []
-        defaultItems.map(service => {
+        data.map(service => {
             return (
                 service.category.map(n => arr.push({
                     name: n.name,
@@ -60,7 +61,7 @@ const Services = () => {
     // hendlaj aktivna kategorija i zacuvaj podatoci vo niza
     const handleActive = (category) => {
         const arr = []
-        defaultItems.filter(cat => {
+        data.filter(cat => {
                 cat.category.map(c => {
                     if(category == c.name){
                         c.subCategory.map(subc => {
@@ -71,13 +72,11 @@ const Services = () => {
                                 console.log('eve go', subCategory[0].online)
                             } else {
                                 setHideOnline(false)
-                            }  
-                            
+                            }
+                            // setHideOnline(false)
                         })
-
                     }
-                }
-                )
+                })
         })
         setSubCategory(arr)
         setActive(category) 
@@ -89,36 +88,22 @@ const Services = () => {
         if(selected.length === 0) {
             setSelected([treatmentName])
         } else {
-               if(selected.includes(treatmentName)){
-                    setSelected(selected.filter(t => t !== treatmentName))
-                } else {
-                    setSelected([...selected, treatmentName])
-                }
+            if(selected.includes(treatmentName)){
+                setSelected(selected.filter(t => t !== treatmentName))
+            } else {
+                setSelected([...selected, treatmentName])
+            }
         }
     }
     console.log(selected)
     return(
         <>
             <div style={{display: 'flex', justifyContent: 'center', alignContent: 'center'}}>
-                <Row justify="space-between" align="middle" style={{display: "flex", border: "1px solid", width: '700px'}}>
-                    <Col span={3} > 
-                        <Card onClick={handleAll} icon={AppstoreOutlined} serviceName="All" /> 
-                    </Col>
-                {
-                    defaultItems.map(service => 
-                        <Col span={3} >
-                           <Card
-                                onClick={handleList}
-                                key={service.name} 
-                                icon={service.icon} 
-                                serviceName={service.name}
-                                categoryName={service.category[0].name} 
-                            />  
-                        </Col>
-                    )
-                }
-                
-                </Row>
+                <MasterCategories 
+                    data={data} 
+                    handleAll={handleAll} 
+                    handleList={handleList} 
+                />
             </div>
             <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
                 <ServicesList 
@@ -132,6 +117,7 @@ const Services = () => {
                     treatments={subCategory} 
                     select={handleSelect} 
                     hideOnline={hideOnline}
+                    // inClinic={inClinic} 
                 />
             </div>
             <div>
